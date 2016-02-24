@@ -1,11 +1,11 @@
 <?php
     require_once __DIR__."/../vendor/autoload.php";
-    require_once __DIR__."/../src/Task.php";
-    require_once __DIR__."/../src/Category.php";
+    require_once __DIR__."/../src/Restaurant.php";
+    require_once __DIR__."/../src/Cuisine.php";
 
     $app = new Silex\Application();
 
-    $server = 'mysql:host=localhost;dbname=to_do';
+    $server = 'mysql:host=localhost;dbname=best_restaurants';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -18,7 +18,7 @@
     Request::enableHttpMethodParameterOverride();
     /**home page**/
     $app->get("/", function() use ($app) {
-        return $app['twig']->render('index.html.twig', array('categories'=> Category::getAll()));
+        return $app['twig']->render('index.html.twig', array('cuisines'=> Cuisine::getAll()));
     });
     /**lists out all tasks page & connects to categories**/
     $app->get("/tasks", function() use ($app) {
