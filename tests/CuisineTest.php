@@ -114,7 +114,7 @@
             $this->assertEquals($test_Cuisine, $result);
         }
 
-        // function testGetTasks()
+        // function testGetRestaurants()
         // {
         //     //Arrange
         //     $type = "Indian";
@@ -124,59 +124,58 @@
         //
         //     $test_cuisine_id = $test_cuisine->getId();
         //
-        //     $description = "Email client";
-        //     $due = '2016-02-24';
-        //     $test_task = new Task($description, $id, $test_cuisine_id, $due);
+        //     $name = "Indian Burger King";
+        //     $test_task = new Task($name, $id, $test_cuisine_id, $due);
         //     $test_task->save();
         //
-        //     $description2 = "Meet with boss";
+        //     $description2 = "McDonalds";
         //     $due2 = '2016-02-25';
         //     $test_task2 = new Task($description2, $id, $test_cuisine_id, $due2);
         //     $test_task2->save();
         //
         //     //Act
-        //     $result = $test_cuisine->getTasks();
+        //     $result = $test_cuisine->getRestaurants();
         //
         //     //Assert
         //     $this->assertEquals([$test_task, $test_task2], $result);
         // }
 
-        // function testUpdate()
-        // {
-        //     //Arrange
-        //     $type = "Indian";
-        //     $id = null;
-        //     $test_cuisine = new Cuisine($type, $id);
-        //     $test_cuisine->save();
-        //
-        //     $new_type = "Italian";
-        //
-        //     //Act
-        //     $test_cuisine->update($new_type);
-        //
-        //     //Assert
-        //     $this->assertEquals("Italian", $test_cuisine->getType());
-        // }
-        //
-        // function testDelete()
-        // {
-        //     //Arrange
-        //     $type = "Indian";
-        //     $id = null;
-        //     $test_cuisine = new Cuisine($type, $id);
-        //     $test_cuisine->save();
-        //
-        //     $type2 = "Italian";
-        //     $test_cuisine2 = new Cuisine($type2, $id);
-        //     $test_cuisine2->save();
-        //
-        //
-        //     //Act
-        //     $test_cuisine->delete();
-        //
-        //     //Assert
-        //     $this->assertEquals([$test_cuisine2], Cuisine::getAll());
-        // }
+        function testUpdate()
+        {
+            //Arrange
+            $type = "Indian";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $new_type = "Italian";
+
+            //Act
+            $test_cuisine->update($new_type);
+
+            //Assert
+            $this->assertEquals("Italian", $test_cuisine->getType());
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $type = "Indian";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $type2 = "Italian";
+            $test_cuisine2 = new Cuisine($type2, $id);
+            $test_cuisine2->save();
+
+
+            //Act
+            $test_cuisine->delete();
+
+            //Assert
+            $this->assertEquals([$test_cuisine2], Cuisine::getAll());
+        }
     }
 
 ?>
