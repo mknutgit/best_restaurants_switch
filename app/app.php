@@ -16,18 +16,49 @@
 
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
+
     /**home page**/
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig', array('cuisines'=> Cuisine::getAll()));
     });
+    /*post cuisines*/
+    $app->post("/cuisines", function() use ($app){
+        $cuisine = new Cuisine($_POST['type']);
+        $cuisine->save();
+        return $app['twig']->render('index.html.twig', array('cuisines'=> Cuisine::getAll()));
+    });
+    /**shows single cuisine**/
+    $app->get("/restaurants/{id}", function($id) use ($app){
+        $this_cuisine = Cuisine::find($id);
+        $restaurants = $this_cuisine->getRestaurants();
+        var_dump($this_cuisine);
+        return $app['twig']->render('cuisines.html.twig', array('restaurants'=> $restaurants, 'cuisine' => $this_cuisine));
+    });
+    /* add restaurants */
+    $app->post("/restaurants/{id}", function($id) use ($app) {
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $website = $_POST['website'];
+        $location = $_POST['location'];
+        $phone = $_POST['phone'];
+        $cuisine_id = $id;
+        $restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, null);
+        $restaurant->save();
+        $cuisine = Cuisine::find($id);
+        var_dump($cuisine);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+    });
+
+
+
+
+
+
+
+
     /**lists out all restaurants page & connects to cuisines**/
     $app->get("/restaurants", function() use ($app) {
         return $app['twig']->render('restaurants.html.twig', array('restaurants' => Restaurant::getAll(), 'cuisines' => Restaurant::getAll()));
-    });
-    /**shows single id**/
-    $app->get("/restaurants/{id}", function($id) use ($app){
-        $restaurants = Restaurant::find($id);
-        return $app['twig']->render('restaurants.html.twig', array('$restaurants'=> $restaurants));
     });
     /**find a restaurant**/
     $app->get("/restaurants/{id}/edit", function($id) use ($app) {
@@ -75,26 +106,6 @@
         $cuisine = Cuisine::getAll();
         $restaurants = Restaurant::getAll();
         return $app['twig']->render('total.html.twig', array('cuisines'=> $cuisine, 'restaurants' => $restaurants));
-    });
-    /* add restaurants */
-    $app->post("/restaurants", function() use ($app) {
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $website = $_POST['website'];
-        $location = $_POST['location'];
-        $phone = $_POST['phone'];
-        $cuisine_id = $_POST['cuisine_id'];
-        $restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id = null);
-        $restaurant->save();
-        $cuisine = Cuisine::find($cuisine_id);
-        // var_dump($cuisine);
-        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
-    });
-    /*post cuisines*/
-    $app->post("/cuisines", function() use ($app){
-        $cuisine = new Cuisine($_POST['type']);
-        $cuisine->save();
-        return $app['twig']->render('index.html.twig', array('cuisines'=> Cuisine::getAll()));
     });
     /*delete restaurants*/
     $app->post("/delete_restaurants", function() use ($app) {
