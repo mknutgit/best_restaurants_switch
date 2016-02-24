@@ -1,19 +1,34 @@
 <?php
     class Task
     {
+        private $name;
         private $description;
-        private $category_id;
+        private $website;
+        private $location;
+        private $phone;
+        private $cuisine_id;
         private $id;
-        private $due;
 
-        function __construct($description, $id = null, $category_id, $due)
+        function __construct($name, $description, $website, $location, $phone, $cuisine_id, $id = null)
         {
+            $this->name = $name;
             $this->description = $description;
-            $this->id = $id;
-            $this->category_id = $category_id;
-            $this->due = $due;
+            $this->website = $website;
+            $this->location = $location;
+            $this->phone = $phone;
+            $this->cuisine_id = $cuisine_id;
+        }
+        /* Getter/Setter for name */
+        function setName($new_name)
+        {
+            $this->name = (string) $new_name;
         }
 
+        function getName()
+        {
+            return $this->name;
+        }
+        /* Getter/Setter for description */
         function setDescription($new_description)
         {
             $this->description = (string) $new_description;
@@ -23,25 +38,45 @@
         {
             return $this->description;
         }
-
-        function getId()
+        /*Getter/Setter for website*/
+        function setWebsite($new_website)
         {
-            return $this->id;
+            $this->website = $new_website;
         }
 
+        function getWebsite()
+        {
+            return $this->website;
+        }
+        /*Getter/Setter for location*/
+        function setLocation($new_location)
+        {
+            $this->location = $new_location;
+        }
+
+        function getLocation()
+        {
+            return $this->location;
+        }
+        /*Getter/Setter for phone*/
+        function setPhone($new_phone)
+        {
+            $this->phone = $new_phone;
+        }
+
+        function getPhone()
+        {
+            return $this->phone;
+        }
+        /* Getter for cuisine id */
         function getCategoryId()
         {
             return $this->category_id;
         }
-
-        function getDue()
+        /* Getter for id */
+        function getId()
         {
-            return $this->due;
-        }
-
-        function setDue($new_due)
-        {
-            $this->due = $new_due;
+            return $this->id;
         }
 
 

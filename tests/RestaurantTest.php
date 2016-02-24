@@ -4,21 +4,21 @@
     * @backupStaticAttributes disabled
     */
 
-    require_once "src/Task.php";
-    require_once "src/Category.php";
+    require_once "src/Restaurant.php";
+    require_once "src/Cuisine.php";
 
-    $server = 'mysql:host=localhost;dbname=to_do_test';
+    $server = 'mysql:host=localhost;dbname=best_restaurants_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
 
-    class TaskTest extends PHPUnit_Framework_TestCase
+    class RestaurantTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown()
         {
-            Task::deleteAll();
-            Category::deleteAll();
+            Restaurant::deleteAll();
+            Cuisine::deleteAll();
         }
 
         function test_save()
@@ -33,13 +33,13 @@
             $description = "Wash the dog";
             $category_id = $test_category->getId();
             $due = '2016-02-23';
-            $test_task = new Task($description, $id, $category_id, $due);
+            $test_task = new Restaurant($description, $id, $category_id, $due);
 
             //Act
             $test_task->save();
 
             //Assert
-            $result = Task::getAll();
+            $result = Restaurant::getAll();
             var_dump($test_task);
             $this->assertEquals($test_task, $result[0]);
         }
@@ -56,13 +56,13 @@
             $due = '2016-02-23';
             $description2 = "Water the lawn";
             $due2 = '2016-05-23';
-            $test_task = new Task($description, $id, $category_id, $due);
+            $test_task = new Restaurant($description, $id, $category_id, $due);
             $test_task->save();
-            $test_task2 = new Task($description2, $id, $category_id, $due2);
+            $test_task2 = new Restaurant($description2, $id, $category_id, $due2);
             $test_task2->save();
 
             //Act
-            $result = Task::getAll();
+            $result = Restaurant::getAll();
 
             //Assert
             $this->assertEquals([$test_task, $test_task2], $result);
@@ -80,16 +80,16 @@
             $due = '2016-02-23';
             $description2 = "Water the lawn";
             $due2 = '2016-05-23';
-            $test_task = new Task($description, $id, $category_id, $due);
+            $test_task = new Restaurant($description, $id, $category_id, $due);
             $test_task->save();
-            $test_task2 = new Task($description2, $id, $category_id, $due2);
+            $test_task2 = new Restaurant($description2, $id, $category_id, $due2);
             $test_task2->save();
 
             //Act
-            Task::deleteAll();
+            Restaurant::deleteAll();
 
             //Assert
-            $result = Task::getAll();
+            $result = Restaurant::getAll();
             $this->assertEquals([], $result);
         }
 
@@ -105,7 +105,7 @@
             $description = "Wash the dog";
             $category_id = $test_category->getId();
             $due = '2016-05-23';
-            $test_task = new Task($description, $id, $category_id, $due);
+            $test_task = new Restaurant($description, $id, $category_id, $due);
             $test_task->save();
 
             //Act
@@ -128,14 +128,14 @@
             $due = '2016-02-23';
             $description2 = "Water the lawn";
             $due2 = '2016-05-23';
-            $test_task = new Task($description, $id, $category_id, $due);
+            $test_task = new Restaurant($description, $id, $category_id, $due);
             $test_task->save();
-            $test_task2 = new Task($description2, $id, $category_id, $due2);
+            $test_task2 = new Restaurant($description2, $id, $category_id, $due2);
             $test_task2->save();
 
             //Act
 
-            $result = Task::find($test_task->getId());
+            $result = Restaurant::find($test_task->getId());
 
             //Assert
             $this->assertEquals($test_task, $result);
@@ -147,7 +147,7 @@
             $id = null;
             $category_id = 1;
             $due = 2016-02-24;
-            $test_task = new Task($name, $id, $category_id, $due);
+            $test_task = new Restaurant($name, $id, $category_id, $due);
             $test_task->save();
 
             $new_name = "Work on car";
@@ -165,14 +165,14 @@
             $id = null;
             $category_id = 1;
             $due = 2016-02-24;
-            $test_task = new Task($name, $id, $category_id, $due);
+            $test_task = new Restaurant($name, $id, $category_id, $due);
             $test_task->save();
 
             $name2 = "Throw rocks at blind";
             $id = null;
             $category_id2 = 2;
             $due2 = 2016-02-25;
-            $test_task2 = new Task($name2, $id, $category_id2, $due2);
+            $test_task2 = new Restaurant($name2, $id, $category_id2, $due2);
             $test_task2->save();
 
 
@@ -180,7 +180,7 @@
             $test_task->delete();
 
             //Assert
-            $this->assertEquals([$test_task2], Task::getAll());
+            $this->assertEquals([$test_task2], Restaurant::getAll());
         }
     }
  ?>
