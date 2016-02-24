@@ -24,66 +24,85 @@
         function test_save()
         {
             //Arrange
-
-            $name = "Home stuff";
+            $type = "Indian";
             $id = null;
-            $test_category = new Category($name, $id);
-            $test_category->save();
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
 
-            $description = "Wash the dog";
-            $category_id = $test_category->getId();
-            $due = '2016-02-23';
-            $test_task = new Restaurant($description, $id, $category_id, $due);
+            $name = "Taste of India";
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+            $cuisine_id = $test_cuisine->getId();
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
 
             //Act
-            $test_task->save();
-
+            $test_restaurant->save();
+            // var_dump($test_restaurant);
             //Assert
             $result = Restaurant::getAll();
-            var_dump($test_task);
-            $this->assertEquals($test_task, $result[0]);
+            // var_dump($result);
+
+            $this->assertEquals($test_restaurant, $result[0]);
         }
         function test_getAll()
         {
             //Arrange
-            $name = "Home stuff";
+            $type = "Indian";
             $id = null;
-            $test_category = new Category($name, $id);
-            $test_category->save();
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
 
-            $description = "Wash the dog";
-            $category_id = $test_category->getId();
-            $due = '2016-02-23';
-            $description2 = "Water the lawn";
-            $due2 = '2016-05-23';
-            $test_task = new Restaurant($description, $id, $category_id, $due);
-            $test_task->save();
-            $test_task2 = new Restaurant($description2, $id, $category_id, $due2);
-            $test_task2->save();
+            $name = "Taste of India";
+            $cuisine_id = $test_cuisine->getId();
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
 
+            $name2 = "Best of India";
+            $description2 = "A great place for dal.";
+            $website2 = "http://www.bestofindia.com";
+            $location2 = "2nd and 3rd";
+            $phone2 = "5032334438";
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+            $test_restaurant2 = new Restaurant($name2, $description2, $website2, $location2, $phone2, $cuisine_id, $id);
+            $test_restaurant2->save();
             //Act
             $result = Restaurant::getAll();
-
+            // var_dump($result);
             //Assert
-            $this->assertEquals([$test_task, $test_task2], $result);
+            $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
         }
         function test_deleteAll()
         {
             //Arrange
-            $name = "Home stuff";
+            $type = "Indian";
             $id = null;
-            $test_category = new Category($name, $id);
-            $test_category->save();
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
 
-            $description = "Wash the dog";
-            $category_id = $test_category->getId();
-            $due = '2016-02-23';
-            $description2 = "Water the lawn";
-            $due2 = '2016-05-23';
-            $test_task = new Restaurant($description, $id, $category_id, $due);
-            $test_task->save();
-            $test_task2 = new Restaurant($description2, $id, $category_id, $due2);
-            $test_task2->save();
+            $name = "Taste of India";
+            $cuisine_id = $test_cuisine->getId();
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+
+            $name2 = "Best of India";
+            $description2 = "A great place for dal.";
+            $website2 = "http://www.bestofindia.com";
+            $location2 = "2nd and 3rd";
+            $phone2 = "5032334438";
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+            $test_restaurant2 = new Restaurant($name2, $description2, $website2, $location2, $phone2, $cuisine_id, $id);
+            $test_restaurant2->save();
 
             //Act
             Restaurant::deleteAll();
@@ -96,20 +115,23 @@
         function test_getId()
         {
             //Arrange
-
-            $name = "Home stuff";
+            $type = "Indian";
             $id = null;
-            $test_category = new Category($name, $id);
-            $test_category->save();
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
 
-            $description = "Wash the dog";
-            $category_id = $test_category->getId();
-            $due = '2016-05-23';
-            $test_task = new Restaurant($description, $id, $category_id, $due);
-            $test_task->save();
+            $name = "Taste of India";
+            $cuisine_id = $test_cuisine->getId();
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
 
             //Act
-            $result = $test_task->getId();
+            $result = $test_restaurant->getId();
 
             //Assert
             $this->assertEquals(true, is_numeric($result));
@@ -118,69 +140,86 @@
         function test_find()
         {
             //Arrange
-            $name = "Home stuff";
+            $type = "Indian";
             $id = null;
-            $test_category = new Category($name, $id);
-            $test_category->save();
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
 
-            $description = "Wash the dog";
-            $category_id = $test_category->getId();
-            $due = '2016-02-23';
-            $description2 = "Water the lawn";
-            $due2 = '2016-05-23';
-            $test_task = new Restaurant($description, $id, $category_id, $due);
-            $test_task->save();
-            $test_task2 = new Restaurant($description2, $id, $category_id, $due2);
-            $test_task2->save();
+            $name = "Taste of India";
+            $cuisine_id = $test_cuisine->getId();
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+
+            $name2 = "Best of India";
+            $description2 = "A great place for dal.";
+            $website2 = "http://www.bestofindia.com";
+            $location2 = "2nd and 3rd";
+            $phone2 = "5032334438";
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+            $test_restaurant2 = new Restaurant($name2, $description2, $website2, $location2, $phone2, $cuisine_id, $id);
+            $test_restaurant2->save();
 
             //Act
 
-            $result = Restaurant::find($test_task->getId());
+            $result = Restaurant::find($test_restaurant->getId());
 
             //Assert
-            $this->assertEquals($test_task, $result);
+            $this->assertEquals($test_restaurant, $result);
         }
         function testUpdate()
         {
             //Arrange
-            $name = "Work on car";
+            $name = "Taste of India";
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+            $cuisine_id = 1;
             $id = null;
-            $category_id = 1;
-            $due = 2016-02-24;
-            $test_task = new Restaurant($name, $id, $category_id, $due);
-            $test_task->save();
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
 
-            $new_name = "Work on car";
+            $new_name = "Feast of India";
 
             //Act
-            $test_task->update($new_name);
+            $test_restaurant->update($new_name);
 
             //Assert
-            $this->assertEquals("Work on car", $test_task->getDescription());
+            $this->assertEquals("Feast of India", $test_restaurant->getName());
         }
         function testDelete()
         {
             //Arrange
-            $name = "Work on car";
+            $name = "Taste of India";
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+            $cuisine_id = 1;
             $id = null;
-            $category_id = 1;
-            $due = 2016-02-24;
-            $test_task = new Restaurant($name, $id, $category_id, $due);
-            $test_task->save();
 
-            $name2 = "Throw rocks at blind";
-            $id = null;
-            $category_id2 = 2;
-            $due2 = 2016-02-25;
-            $test_task2 = new Restaurant($name2, $id, $category_id2, $due2);
-            $test_task2->save();
+            $name2 = "Best of India";
+            $description2 = "A great place for dal.";
+            $website2 = "http://www.bestofindia.com";
+            $location2 = "2nd and 3rd";
+            $phone2 = "5032334438";
+            $cuisine_id2 = 2;
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+            $test_restaurant2 = new Restaurant($name2, $description2, $website2, $location2, $phone2, $cuisine_id2, $id);
+            $test_restaurant2->save();
 
 
             //Act
-            $test_task->delete();
+            $test_restaurant->delete();
 
             //Assert
-            $this->assertEquals([$test_task2], Restaurant::getAll());
+            $this->assertEquals([$test_restaurant2], Restaurant::getAll());
         }
     }
  ?>

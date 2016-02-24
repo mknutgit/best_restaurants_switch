@@ -1,5 +1,5 @@
 <?php
-    class Task
+    class Restaurant
     {
         private $name;
         private $description;
@@ -17,6 +17,7 @@
             $this->location = $location;
             $this->phone = $phone;
             $this->cuisine_id = $cuisine_id;
+            $this->id = $id;
         }
         /* Getter/Setter for name */
         function setName($new_name)
@@ -69,9 +70,9 @@
             return $this->phone;
         }
         /* Getter for cuisine id */
-        function getCategoryId()
+        function getCuisineId()
         {
-            return $this->category_id;
+            return $this->cuisine_id;
         }
         /* Getter for id */
         function getId()
@@ -79,53 +80,55 @@
             return $this->id;
         }
 
-
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO tasks (description, category_id, due) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}, '{$this->getDue()}');");
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, description, website, location, phone, cuisine_id) VALUES ('{$this->getName()}', '{$this->getDescription()}', '{$this->getWebsite()}', '{$this->getLocation()}', {$this->getPhone()}, {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         static function getAll()
         {
-            $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks ORDER BY due;");
-            $tasks = array();
-            foreach($returned_tasks as $task) {
-                $description = $task['description'];
-                $id = $task['id'];
-                $category_id = $task['category_id'];
-                $due = $task['due'];
-                $new_task = new Task($description, $id, $category_id, $due);
-                array_push($tasks, $new_task);
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
+            $restaurants = array();
+            foreach($returned_restaurants as $restaurant) {
+                $name = $restaurant['name'];
+                $description = $restaurant['description'];
+                $website = $restaurant['website'];
+                $location = $restaurant['location'];
+                $phone = $restaurant['phone'];
+                $cuisine_id = $restaurant['cuisine_id'];
+                $id = $restaurant['id'];
+                $new_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+                array_push($restaurants, $new_restaurant);
             }
-            return $tasks;
+            return $restaurants;
         }
 
         static function deleteAll()
         {
-           $GLOBALS['DB']->exec("DELETE FROM tasks;");
+           $GLOBALS['DB']->exec("DELETE FROM restaurants;");
         }
 
         static function find($search_id)
         {
-            $found_task = null;
-            $tasks = Task::getAll();
-            foreach ($tasks as $task){
-                $task_id = $task->getID();
-                if ($task_id == $search_id){
-                    $found_task = $task;
+            $found_restaurant = null;
+            $restaurants = Restaurant::getAll();
+            foreach ($restaurants as $restaurant){
+                $restaurant_id = $restaurant->getId();
+                if ($restaurant_id == $search_id){
+                    $found_restaurant = $restaurant;
                 }
             }
-            return $found_task;
+            return $found_restaurant;
         }
         function update($new_name)
         {
-            $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_name}' WHERE id = {$this->getId()};");
-            $this->setDescription($new_name);
+            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
         }
         function delete()
        {
-           $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
+           $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE id = {$this->getId()};");
 
        }
 

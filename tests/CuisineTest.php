@@ -18,7 +18,7 @@
         protected function tearDown()
         {
           Cuisine::deleteAll();
-        //   Restaurant::deleteAll();
+          Restaurant::deleteAll();
         }
 
         function test_getType()
@@ -114,31 +114,38 @@
             $this->assertEquals($test_Cuisine, $result);
         }
 
-        // function testGetRestaurants()
-        // {
-        //     //Arrange
-        //     $type = "Indian";
-        //     $id = null;
-        //     $test_cuisine = new Cuisine($type, $id);
-        //     $test_cuisine->save();
-        //
-        //     $test_cuisine_id = $test_cuisine->getId();
-        //
-        //     $name = "Indian Burger King";
-        //     $test_task = new Task($name, $id, $test_cuisine_id, $due);
-        //     $test_task->save();
-        //
-        //     $description2 = "McDonalds";
-        //     $due2 = '2016-02-25';
-        //     $test_task2 = new Task($description2, $id, $test_cuisine_id, $due2);
-        //     $test_task2->save();
-        //
-        //     //Act
-        //     $result = $test_cuisine->getRestaurants();
-        //
-        //     //Assert
-        //     $this->assertEquals([$test_task, $test_task2], $result);
-        // }
+        function testGetRestaurants()
+        {
+            //Arrange
+            $type = "Indian";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $name = "Taste of India";
+            $cuisine_id = $test_cuisine->getId();
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+
+            $name2 = "Best of India";
+            $description2 = "A great place for dal.";
+            $website2 = "http://www.bestofindia.com";
+            $location2 = "2nd and 3rd";
+            $phone2 = "5032334438";
+
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+            $test_restaurant2 = new Restaurant($name2, $description2, $website2, $location2, $phone2, $cuisine_id, $id);
+            $test_restaurant2->save();
+
+            //Act
+            $result = $test_cuisine->getRestaurants();
+
+            //Assert
+            $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
+        }
 
         function testUpdate()
         {

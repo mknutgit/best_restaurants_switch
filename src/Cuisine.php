@@ -62,19 +62,22 @@
             return $found_cuisine;
         }
 
-        function getTasks()
+        function getRestaurants()
         {
-            $tasks = Array();
-            $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE cuisine_id = {$this->getId()} ORDER BY due");
-            foreach($returned_tasks as $task) {
-                $description = $task['description'];
-                $id = $task['id'];
-                $cuisine_id = $task['cuisine_id'];
-                $due = $task['due'];
-                $new_task = new Task($description, $id, $cuisine_id, $due);
-                array_push($tasks, $new_task);
+            $restaurants = Array();
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$this->getId()}");
+            foreach($returned_restaurants as $restaurant) {
+                $name = $restaurant['name'];
+                $description = $restaurant['description'];
+                $website = $restaurant['website'];
+                $location = $restaurant['location'];
+                $phone = $restaurant['phone'];
+                $cuisine_id = $restaurant['cuisine_id'];
+                $id = $restaurant['id'];
+                $new_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+                array_push($restaurants, $new_restaurant);
             }
-            return $tasks;
+            return $restaurants;
         }
 
         function update($new_type)
