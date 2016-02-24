@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <body>
+        <h1>Restaurants</h1>
+
+
+        {% if restaurants is not empty %}
+            <p>Here are all your restaurants:</p>
+            <ul>
+                {% for restaurant in restaurants %}
+                    <li><a href="/restaurants/{{ restaurant.getId }}/edit">{{ restaurant.getName }} --
+                    {% for cuisine in cuisines %}
+                        <!-- {% if cuisine.getId == restaurant.getCuisineId %}
+                        <em>{{ cuisine.getType}}</em>
+                        {% endif %} -->
+                    {% endfor %}
+                    </a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form action='/restaurants' method='post'>
+            <label for='name'>Restaurant name</label>
+            <input id='name' name='name' type='text'>
+            <label for='description'>Restaurant description</label>
+            <input id='description' name='description' type='text'>
+            <label for='website'>Restaurant website</label>
+            <input id='website' name='website' type='text'>
+            <label for='location'>Restaurant location</label>
+            <input id='location' name='location' type='text'>
+            <label for='phone'>Restaurant phone</label>
+            <input id='phone' name='phone' type='text'>
+
+            <button type='submit'>Add restaurant</button>
+        </form>
+        <form action='/delete_restaurants' method='post'>
+            <button type='submit'>Clear</button>
+        </form>
+        <p><a href='/restaurants/{{ restaurant.getId }}'>Edit Restaurants</a></p>
+        <p><a href='/'>Home</a></p>
+    </body>
+</html>

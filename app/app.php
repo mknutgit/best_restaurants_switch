@@ -20,83 +20,82 @@
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig', array('cuisines'=> Cuisine::getAll()));
     });
-    /**lists out all tasks page & connects to categories**/
-    $app->get("/tasks", function() use ($app) {
-        return $app['twig']->render('tasks.html.twig', array('tasks' => Task::getAll(), 'categories' => Task::getAll()));
+    /**lists out all restaurants page & connects to cuisines**/
+    $app->get("/restaurants", function() use ($app) {
+        return $app['twig']->render('restaurants.html.twig', array('restaurants' => Restaurant::getAll(), 'cuisines' => Restaurant::getAll()));
     });
     /**shows single id**/
-    $app->get("/tasks/{id}", function($id) use ($app){
-        $tasks = Task::find($id);
-        return $app['twig']->render('tasks.html.twig', array('$tasks'=> $tasks));
+    $app->get("/restaurants/{id}", function($id) use ($app){
+        $restaurants = Restaurant::find($id);
+        return $app['twig']->render('restaurants.html.twig', array('$restaurants'=> $restaurants));
     });
-    $app->get("/tasks/{id}/edit", function($id) use ($app) {
-        $task = Task::find($id);
-        return $app['twig']->render('task_edit.html.twig', array('tasks' => $task));
+    /**find a restaurant**/
+    $app->get("/restaurants/{id}/edit", function($id) use ($app) {
+        $restaurant = Restaurant::find($id);
+        return $app['twig']->render('restaurant_edit.html.twig', array('restaurants' => $restaurant));
     });
-
-    $app->patch("/tasks/{id}", function($id) use ($app) {
-        $name = $_POST['description'];
-        $task = Task::find($id);
-        $task->update($name);
-        return $app['twig']->render('tasks.html.twig', array('task' => $task));
-    });
-    $app->delete("/tasks/{id}", function($id) use ($app) {
-        $task = Task::find($id);
-        $task->delete();
-        return $app['twig']->render('index.html.twig', array('task' => Task::getAll()));
-    });
-
-    $app->get("/categories/{id}", function($id) use ($app){
-        $category = Category::find($id);
-        return $app['twig']->render('categories.html.twig', array('category'=> $category, 'tasks' => $category->getTasks()));
-    });
-    $app->get("/categories/{id}/edit", function($id) use ($app) {
-        $category = Category::find($id);
-        return $app['twig']->render('category_edit.html.twig', array('category' => $category));
-    });
-    $app->patch("/categories/{id}", function($id) use ($app) {
+    /*edit restaurant by id*/
+    $app->patch("/restaurants/{id}", function($id) use ($app) {
         $name = $_POST['name'];
-        $category = Category::find($id);
-        $category->update($name);
-        return $app['twig']->render('categories.html.twig', array('category' => $category, 'tasks' => $category->getTasks()));
-    });
-    $app->delete("/categories/{id}", function($id) use ($app) {
-        $category = Category::find($id);
-        $category->delete();
-        return $app['twig']->render('index.html.twig', array('categories' => Category::getAll()));
+        $restaurant = Restaurant::find($id);
+        $restaurant->update($name);
+        return $app['twig']->render('restaurants.html.twig', array('restaurant' => $restaurant));
     });
 
+    $app->delete("/restaurants/{id}", function($id) use ($app) {
+        $restaurant = Restaurant::find($id);
+        $restaurant->delete();
+        return $app['twig']->render('index.html.twig', array('restaurant' => Restaurant::getAll()));
+    });
+    /*get cuisine by id*/
+    $app->get("/cuisines/{id}", function($id) use ($app){
+        $cuisine = Cuisine::find($id);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine'=> $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+    });
+    /*find cuisine by id*/
+    $app->get("/cuisines/{id}/edit", function($id) use ($app) {
+        $cuisine = Cuisine::find($id);
+        return $app['twig']->render('cuisine_edit.html.twig', array('cuisine' => $cuisine));
+    });
+
+    $app->patch("/cuisines/{id}", function($id) use ($app) {
+        $name = $_POST['name'];
+        $cuisine = Cuisine::find($id);
+        $cuisine->update($name);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+    });
+    $app->delete("/cuisines/{id}", function($id) use ($app) {
+        $cuisine = Cuisine::find($id);
+        $cuisine->delete();
+        return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
+    });
     $app->get("/total", function() use ($app){
-        $category = Category::getAll();
-        $tasks = Task::getAll();
-        return $app['twig']->render('total.html.twig', array('categories'=> $category, 'tasks' => $tasks));
+        $cuisine = Cuisine::getAll();
+        $restaurants = Restaurant::getAll();
+        return $app['twig']->render('total.html.twig', array('cuisines'=> $cuisine, 'restaurants' => $restaurants));
     });
-
-    $app->post("/tasks", function() use ($app) {
-
+    $app->post("/restaurants", function() use ($app) {
         $description = $_POST['description'];
-        $category_id = $_POST['category_id'];
+        $cuisine_id = $_POST['cuisine_id'];
         $due = $_POST['due'];
-        $task = new Task($description, $id = null, $category_id, $due);
-        $task->save();
-        $category = Category::find($category_id);
-        var_dump($category);
-        return $app['twig']->render('categories.html.twig', array('category' => $category, 'tasks' => $category->getTasks()));
+        $restaurant = new Restaurant($description, $id = null, $cuisine_id, $due);
+        $restaurant->save();
+        $cuisine = Cuisine::find($cuisine_id);
+        // var_dump($cuisine);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });
+    $app->post("/cuisines", function() use ($app){
+        $cuisine = new Cuisine($_POST['type']);
+        $cuisine->save();
 
-    $app->post("/categories", function() use ($app){
-        $category = new Category($_POST['name']);
-        $category->save();
-
-        return $app['twig']->render('index.html.twig', array('categories'=> Category::getAll()));
+        return $app['twig']->render('index.html.twig', array('cuisines'=> Cuisine::getAll()));
     });
-
-    $app->post("/delete_tasks", function() use ($app) {
-        Task::deleteAll();
+    $app->post("/delete_restaurants", function() use ($app) {
+        Restaurant::deleteAll();
         return $app['twig']->render('index.html.twig');
     });
-    $app->post("/delete_categories", function() use ($app) {
-        Category::deleteAll();
+    $app->post("/delete_cuisines", function() use ($app) {
+        Cuisine::deleteAll();
         return $app['twig']->render('index.html.twig');
     });
 
