@@ -1,8 +1,8 @@
-# _{Application Name}_
+# _Best Restaurants_
 
-#### _{Brief description of application}, {Date of current version}_
+#### _Allows users to enter a restaurant into the best restaurants database, 2/24/2016_
 
-#### By _**{List of contributors}**_
+#### By _**Josh Overly and Jon Sweeney**_
 
 ## Description
 
@@ -36,6 +36,6 @@ _
 
 ### License
 
-*{Determine the license under which this application can be used.  See below for more details on licensing.}*
+*MIT*
 
-Copyright (c) 2015 **_{List of contributors or company name}_**
+Copyright (c) 2015 **_Josh Overly and Jon Sweeney_**
