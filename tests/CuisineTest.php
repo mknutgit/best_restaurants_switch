@@ -18,13 +18,13 @@
         protected function tearDown()
         {
           Cuisine::deleteAll();
-          Restaurant::deleteAll();
+        //   Restaurant::deleteAll();
         }
 
         function test_getType()
         {
             //Arrange
-            $type = "Work stuff";
+            $type = "Indian";
             $test_Cuisine = new Cuisine($type);
 
             //Act
@@ -37,7 +37,7 @@
         function test_getId()
         {
             //Arrange
-            $type = "Work stuff";
+            $type = "Indian";
             $id = 1;
             $test_Cuisine = new Cuisine($type, $id);
 
@@ -47,79 +47,79 @@
             //Assert
             $this->assertEquals(true, is_numeric($result));
         }
-        //
-        // function test_save()
-        // {
-        //     //Arrange
-        //     $name = "Work stuff";
-        //     $test_Cuisine = new Cuisine($name);
-        //     $test_Cuisine->save();
-        //
-        //     //Act
-        //     $result = Cuisine::getAll();
-        //
-        //     //Assert
-        //     $this->assertEquals($test_Cuisine, $result[0]);
-        // }
-        //
-        // function test_getAll()
-        // {
-        //     //Arrange
-        //     $name = "Work stuff";
-        //     $name2 = "Home stuff";
-        //     $test_Cuisine = new Cuisine($name);
-        //     $test_Cuisine->save();
-        //     $test_Cuisine2 = new Cuisine($name2);
-        //     $test_Cuisine2->save();
-        //
-        //     //Act
-        //     $result = Cuisine::getAll();
-        //
-        //     //Assert
-        //     $this->assertEquals([$test_Cuisine, $test_Cuisine2], $result);
-        // }
-        //
-        // function test_deleteAll()
-        // {
-        //     //Arrange
-        //     $name = "Wash the dog";
-        //     $name2 = "Home stuff";
-        //     $test_Cuisine = new Cuisine($name);
-        //     $test_Cuisine->save();
-        //     $test_Cuisine2 = new Cuisine($name2);
-        //     $test_Cuisine2->save();
-        //
-        //     //Act
-        //     Cuisine::deleteAll();
-        //     $result = Cuisine::getAll();
-        //
-        //     //Assert
-        //     $this->assertEquals([], $result);
-        // }
-        //
-        // function test_find()
-        // {
-        //     //Arrange
-        //     $name = "Wash the dog";
-        //     $name2 = "Home stuff";
-        //     $test_Cuisine = new Cuisine($name);
-        //     $test_Cuisine->save();
-        //     $test_Cuisine2 = new Cuisine($name2);
-        //     $test_Cuisine2->save();
-        //
-        //     //Act
-        //     $result = Cuisine::find($test_Cuisine->getId());
-        //
-        //     //Assert
-        //     $this->assertEquals($test_Cuisine, $result);
-        // }
-        //
+
+        function test_save()
+        {
+            //Arrange
+            $type = "Indian";
+            $test_Cuisine = new Cuisine($type);
+            $test_Cuisine->save();
+
+            //Act
+            $result = Cuisine::getAll();
+
+            //Assert
+            $this->assertEquals($test_Cuisine, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            $type = "Indian";
+            $type2 = "Mexican";
+            $test_Cuisine = new Cuisine($type);
+            $test_Cuisine->save();
+            $test_Cuisine2 = new Cuisine($type2);
+            $test_Cuisine2->save();
+
+            //Act
+            $result = Cuisine::getAll();
+
+            //Assert
+            $this->assertEquals([$test_Cuisine, $test_Cuisine2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $type = "Indian";
+            $type2 = "Mexican";
+            $test_Cuisine = new Cuisine($type);
+            $test_Cuisine->save();
+            $test_Cuisine2 = new Cuisine($type2);
+            $test_Cuisine2->save();
+
+            //Act
+            Cuisine::deleteAll();
+            $result = Cuisine::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+        }
+
+        function test_find()
+        {
+            //Arrange
+            $type = "Indian";
+            $type2 = "Mexican";
+            $test_Cuisine = new Cuisine($type);
+            $test_Cuisine->save();
+            $test_Cuisine2 = new Cuisine($type2);
+            $test_Cuisine2->save();
+
+            //Act
+            $result = Cuisine::find($test_Cuisine->getId());
+
+            //Assert
+            $this->assertEquals($test_Cuisine, $result);
+        }
+
         // function testGetTasks()
         // {
         //     //Arrange
-        //     $name = "Work stuff";
+        //     $type = "Indian";
         //     $id = null;
-        //     $test_cuisine = new Cuisine($name, $id);
+        //     $test_cuisine = new Cuisine($type, $id);
         //     $test_cuisine->save();
         //
         //     $test_cuisine_id = $test_cuisine->getId();
@@ -140,34 +140,34 @@
         //     //Assert
         //     $this->assertEquals([$test_task, $test_task2], $result);
         // }
-        //
+
         // function testUpdate()
         // {
         //     //Arrange
-        //     $name = "Work stuff";
+        //     $type = "Indian";
         //     $id = null;
-        //     $test_cuisine = new Cuisine($name, $id);
+        //     $test_cuisine = new Cuisine($type, $id);
         //     $test_cuisine->save();
         //
-        //     $new_name = "Home stuff";
+        //     $new_type = "Italian";
         //
         //     //Act
-        //     $test_cuisine->update($new_name);
+        //     $test_cuisine->update($new_type);
         //
         //     //Assert
-        //     $this->assertEquals("Home stuff", $test_cuisine->getType());
+        //     $this->assertEquals("Italian", $test_cuisine->getType());
         // }
         //
         // function testDelete()
         // {
         //     //Arrange
-        //     $name = "Work stuff";
+        //     $type = "Indian";
         //     $id = null;
-        //     $test_cuisine = new Cuisine($name, $id);
+        //     $test_cuisine = new Cuisine($type, $id);
         //     $test_cuisine->save();
         //
-        //     $name2 = "Home stuff";
-        //     $test_cuisine2 = new Cuisine($name2, $id);
+        //     $type2 = "Italian";
+        //     $test_cuisine2 = new Cuisine($type2, $id);
         //     $test_cuisine2->save();
         //
         //
