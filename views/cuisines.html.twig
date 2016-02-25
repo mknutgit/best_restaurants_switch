@@ -18,13 +18,15 @@
                     <li>{{ restaurant.getName }}</li>
                 {% endfor %}
             </ul>
+        {% else %}
+            <p>None Added Yet</p>
         {% endif %}
 
         <h4>Add a restaurant</h4>
 
 
         <form action='/restaurants/{{ cuisine.getId }}' method='post'>
-            <!-- <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId()}}"> -->
+            <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId()}}">
             <label for='name'>Restaurant name</label>
             <input id='name' name='name' type='text'></br>
             <label for='description'>Restaurant description</label>

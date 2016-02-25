@@ -31,7 +31,7 @@
     $app->get("/restaurants/{id}", function($id) use ($app){
         $this_cuisine = Cuisine::find($id);
         $restaurants = $this_cuisine->getRestaurants();
-        var_dump($this_cuisine);
+        // var_dump($this_cuisine);
         return $app['twig']->render('cuisines.html.twig', array('restaurants'=> $restaurants, 'cuisine' => $this_cuisine));
     });
     /* add restaurants */
@@ -45,12 +45,17 @@
         $restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, null);
         $restaurant->save();
         $cuisine = Cuisine::find($id);
-        var_dump($cuisine);
+        var_dump($restaurant);
         return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });
 
 
 
+    /*get cuisine by id*/
+    $app->get("/cuisines/{id}", function($id) use ($app){
+        $cuisine = Cuisine::find($id);
+        return $app['twig']->render('cuisines.html.twig', array('cuisine'=> $cuisine, 'restaurants' => $cuisine->getRestaurants()));
+    });
 
 
 
@@ -78,11 +83,6 @@
         $restaurant->delete();
         return $app['twig']->render('index.html.twig', array('restaurant' => Restaurant::getAll()));
     });
-    /*get cuisine by id*/
-    $app->get("/cuisines/{id}", function($id) use ($app){
-        $cuisine = Cuisine::find($id);
-        return $app['twig']->render('cuisines.html.twig', array('cuisine'=> $cuisine, 'restaurants' => $cuisine->getRestaurants()));
-    });
     /*find cuisine by id*/
     $app->get("/cuisines/{id}/edit", function($id) use ($app) {
         $cuisine = Cuisine::find($id);
@@ -108,13 +108,14 @@
         return $app['twig']->render('total.html.twig', array('cuisines'=> $cuisine, 'restaurants' => $restaurants));
     });
     /*delete restaurants*/
-    $app->post("/delete_restaurants", function() use ($app) {
-        Restaurant::deleteAll();
-        return $app['twig']->render('index.html.twig');
-    });
+    // $app->post("/delete_restaurants", function() use ($app) {
+    //     Restaurant::deleteAll();
+    //     return $app['twig']->render('index.html.twig');
+    // });
     /*delete cuisines*/
     $app->post("/delete_cuisines", function() use ($app) {
         Cuisine::deleteAll();
+        Restaurant::deleteAll();
         return $app['twig']->render('index.html.twig');
     });
 
