@@ -82,8 +82,18 @@
 
         function save()
         {
+            $this->setName($this->adjustPunctuation($this->getName()));
+             $this->setDescription($this->adjustPunctuation($this->getDescription()));
             $GLOBALS['DB']->exec("INSERT INTO restaurants (name, description, website, location, phone, cuisine_id) VALUES ('{$this->getName()}', '{$this->getDescription()}', '{$this->getWebsite()}', '{$this->getLocation()}', '{$this->getPhone()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        function adjustPunctuation($name)
+        {
+            $search = "/(\')/";
+            $replace = "\'";
+            $clean_name = preg_replace($search, $replace, $name);
+            return $clean_name;
         }
 
         static function getAll()

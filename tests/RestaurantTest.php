@@ -47,6 +47,28 @@
 
             $this->assertEquals($test_restaurant, $result[0]);
         }
+
+        function test_adjustPunctuation()
+        {
+            $type = "Chinese";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $name = "Bill's grill and Aundra's noodles";
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+
+            $result = Restaurant::getAll();
+
+            $this->assertEquals("Bill's grill and Aundra's noodles", $result[0]->getName());
+        }
+
         function test_getAll()
         {
             //Arrange

@@ -44,7 +44,6 @@
         $cuisine_id = $id;
         $restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id);
         $restaurant->save();
-        var_dump($restaurant);
         $cuisine = Cuisine::find($id);
         return $app['twig']->render('cuisines.html.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });

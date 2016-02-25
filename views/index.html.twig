@@ -8,33 +8,37 @@
         <title></title>
     </head>
     <body>
-        <h1>Welcome to the Best Restaurants of the US!</h1>
+        <div class="container">
+            <h1>Welcome to the Best Restaurants of the US!</h1>
 
-        <p>Create a new Cuisine:</p>
+            <p>Create a new Cuisine:</p>
 
-        <form action='/cuisines' method='post'>
-            <label for='type'>Cuisine name</label>
-            <input id='type' name='type' type='text'>
+            <form action='/cuisines' method='post'>
+                <label for='type'>Cuisine name</label>
+                <input id='type' name='type' type='text'>
 
-            <button type='submit'>Add cuisine</button>
-        </form>
+                <button type='submit'>Add cuisine</button>
+            </form>
 
-        {% if cuisines is not empty %}
-            <p>Here are all your cuisines:</p>
-            <ul>
-                {% for cuisine in cuisines %}
-                <!-- MAYBE RENAME THIS URL? -->
-                    <li><a href="cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>There are no cuisines yet!</p>
-        {% endif %}
+            {% if cuisines is not empty %}
+                <p>Here are all your cuisines:</p>
+                <ul>
+                    {% for cuisine in cuisines %}
+                    <!-- MAYBE RENAME THIS URL? -->
+                        <li><a href="cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no cuisines yet!</p>
+            {% endif %}
 
-        <form action='/delete_cuisines' method='post'>
-            <button type='submit'>Clear</button>
-        </form>
-        <p><a href="/restaurants">Click here</a> to see all of the restaurants and to add a restaurant.</p>
-        <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
+            <p><a href="/restaurants">Click here</a> to see all of the restaurants and to add a restaurant.</p>
+            <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
+
+            <form action='/delete_cuisines' method='post'>
+                <button type='submit'>Delete All</button>
+            </form>
+        </div>
+
     </body>
 </html>
