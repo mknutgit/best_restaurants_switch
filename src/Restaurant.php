@@ -83,7 +83,7 @@
         function save()
         {
             $this->setName($this->adjustPunctuation($this->getName()));
-             $this->setDescription($this->adjustPunctuation($this->getDescription()));
+            $this->setDescription($this->adjustPunctuation($this->getDescription()));
             $GLOBALS['DB']->exec("INSERT INTO restaurants (name, description, website, location, phone, cuisine_id) VALUES ('{$this->getName()}', '{$this->getDescription()}', '{$this->getWebsite()}', '{$this->getLocation()}', '{$this->getPhone()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
@@ -131,11 +131,19 @@
             }
             return $found_restaurant;
         }
-        function update($new_name)
+
+        function update($new_name, $new_description, $new_website, $new_location, $new_phone)
         {
-            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            $adjusted_new_name = $this->adjustPunctuation($new_name);
+            $adjusted_new_description = $this->adjustPunctuation($new_description);
+            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$adjusted_new_name}', description = '{$adjusted_new_description}', website = '{$new_website}', location = '{$new_location}', phone = '{$new_phone}' WHERE id = {$this->getId()};");
             $this->setName($new_name);
+            $this->setDescription($new_description);
+            $this->setWebsite($new_website);
+            $this->setLocation($new_location);
+            $this->setPhone($new_phone);
         }
+
         function delete()
        {
            $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE id = {$this->getId()};");

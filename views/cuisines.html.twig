@@ -8,39 +8,47 @@
         <title></title>
     </head>
     <body>
-        <body>
-        <h1>{{ cuisine.getType }}</h1>
+        <div class="container">
+            <h1>{{ cuisine.getType }}</h1>
 
-        {% if restaurants is not empty %}
-            <p>Here are all your restaurants:</p>
-            <ul>
-                {% for restaurant in restaurants %}
-                    <li>{{ restaurant.getName }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>None Added Yet</p>
-        {% endif %}
+            {% if restaurants is not empty %}
+                <p>Here are all your restaurants:</p>
+                <ul>
+                    {% for restaurant in restaurants %}
+                        <li>{{ restaurant.getName }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>None Added Yet</p>
+            {% endif %}
 
-        <h4>Add a restaurant</h4>
+            <h4>Add a restaurant</h4>
 
 
-        <form action='/restaurants/{{ cuisine.getId }}' method='post'>
-            <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId()}}">
-            <label for='name'>Restaurant name</label>
-            <input id='name' name='name' type='text'></br>
-            <label for='description'>Restaurant description</label>
-            <input id='description' name='description' type='text'></br>
-            <label for='website'>Restaurant website</label>
-            <input id='website' name='website' type='text'></br>
-            <label for='location'>Restaurant location</label>
-            <input id='location' name='location' type='text'></br>
-            <label for='phone'>Restaurant phone</label>
-            <input id='phone' name='phone' type='text'>
+            <form action='/restaurants/{{ cuisine.getId }}' method='post'>
+                <input id="cuisine_id" name="cuisine_id" type="hidden" value="{{ cuisine.getId()}}">
+                <label for='name'>Restaurant name</label>
+                <input id='name' name='name' type='text'></br>
+                <label for='description'>Description</label>
+                <input id='description' name='description' type='text'></br>
+                <label for='website'>Website</label>
+                <input id='website' name='website' type='text'></br>
+                <label for='location'>Location</label>
+                <input id='location' name='location' type='text'></br>
+                <label for='phone'>Phone</label>
+                <input id='phone' name='phone' type='text'>
 
-            <button type='submit'>Add restaurant</button>
-        </form>
-        <p><a href="/cuisines/{{ cuisine.getId }}/edit">Edit this cuisine</a></p>
-        <p><a href='/'>Home</a></p>
+                <button type='submit'>Add restaurant</button>
+            </form>
+            <p><a href="/cuisines/{{ cuisine.getId }}/edit">Edit this cuisine</a></p>
+
+            <form action="/cuisines/{{ cuisine.getId }}" method="post">
+              <input name="_method" type="hidden" value="delete">
+
+              <button type="submit">Delete this cuisine</button>
+            </form>
+
+            <p><a href='/'>Home</a></p>
+        </div>
     </body>
 </html>

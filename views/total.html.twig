@@ -8,21 +8,20 @@
         <title></title>
     </head>
     <body>
-        <body>
-        <h1>Total Restaurants and Cuisines</h1>
-        {% for cuisine in cuisines %}
-        <h1>{{ cuisine.getType }}</h1>
-            {% for restaurant in restaurants %}
-            <ul>
-            {% if cuisine.getId == restaurant.getCuisineId %}
-                <li>{{ restaurant.getName }}</li>
-            {% endif %}
-            </ul>
+        <div class="container">
+            <h1>Total Restaurants and Cuisines</h1>
+            {% for cuisine in cuisines %}
+            <h1>{{ cuisine.getType }}</h1>
+                {% for restaurant in restaurants %}
+                <ul>
+                {% if cuisine.getId == restaurant.getCuisineId %}
+                    <li>{{ restaurant.getName }}</li>
+                {% endif %}
+                </ul>
+                {% endfor %}
+
             {% endfor %}
-
-        {% endfor %}
-
-
-        <p><a href='/'>Home</a></p>
+            <p><a href='/'>Home</a></p>
+        </div>
     </body>
 </html>

@@ -192,6 +192,7 @@
             //Assert
             $this->assertEquals($test_restaurant, $result);
         }
+
         function testUpdate()
         {
             //Arrange
@@ -208,11 +209,65 @@
             $new_name = "Feast of India";
 
             //Act
-            $test_restaurant->update($new_name);
-
+            $test_restaurant->update($new_name, $description, $website, $location, $phone);
+            $updated_database_restaurant = Restaurant::find($test_restaurant->getId());
             //Assert
+            $this->assertEquals("Feast of India", $updated_database_restaurant->getName());
             $this->assertEquals("Feast of India", $test_restaurant->getName());
         }
+
+        function test_updateDescription()
+        {
+            //Arrange
+            $name = "Taste of India";
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+            $cuisine_id = 1;
+            $id = null;
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+
+            $new_description = "Hole in the wall";
+
+            //Act
+            $test_restaurant->update($name, $new_description, $website, $location, $phone);
+
+            //Assert
+            $this->assertEquals("Hole in the wall", $test_restaurant->getDescription());
+        }
+
+        function test_updateWebsiteLocation()
+        {
+            //Arrange
+            $name = "Taste of India";
+            $description = "A great place for chapati.";
+            $website = "http://www.tasteofindia.com";
+            $location = "1st and 3rd";
+            $phone = "5032330998";
+            $cuisine_id = 1;
+            $id = null;
+            $test_restaurant = new Restaurant($name, $description, $website, $location, $phone, $cuisine_id, $id);
+            $test_restaurant->save();
+
+            $new_website = "http://www.example.com";
+            $new_location = "Vancouver";
+            $new_phone = "5035555555";
+
+            //Act
+            $test_restaurant->update($name, $description, $new_website, $new_location, $new_phone);
+            $updated_database_restaurant = Restaurant::find($test_restaurant->getId());
+
+            //Assert
+            $this->assertEquals("http://www.example.com", $test_restaurant->getWebsite());
+            $this->assertEquals("Vancouver", $test_restaurant->getLocation());
+            $this->assertEquals("5035555555", $test_restaurant->getPhone());
+            $this->assertEquals("http://www.example.com", $updated_database_restaurant->getWebsite());
+            $this->assertEquals("Vancouver", $updated_database_restaurant->getLocation());
+            $this->assertEquals("5035555555", $updated_database_restaurant->getPhone());
+        }
+
         function testDelete()
         {
             //Arrange

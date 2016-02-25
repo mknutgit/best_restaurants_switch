@@ -1,16 +1,41 @@
-<h1>Update the {{ restaurants.getName }} restaurant </h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
 
-<form action="/restaurants/{{ restaurants.getId }}" method="post">
-  <input name="_method" type="hidden" value="patch">
+    <script src="js/jquery-1.12.0.js"></script>
+    <script src="js/scripts.js"></script>
+    <title></title>
+  </head>
+  <body>
+      <div class="container">
+          <h1>Update the {{ restaurant.getName }} restaurant </h1>
 
-  <label for="name">Rename your restaurant:</label>
-  <input id="name" name="name" type="text">
+          <form action="/restaurants/{{ restaurant.getId }}/edit" method="post">
+            <input name="_method" type="hidden" value="patch">
 
-  <button type="submit">Update</button>
-</form>
-<form action="/restaurants/{{ restaurants.getId }}" method="post">
-  <input name="_method" type="hidden" value="delete">
+            <label for="name">Update Name:</label>
+            <input id="name" name="name" type="text" value="{{ restaurant.getName }}">
 
-  <button type="submit">Delete this restaurant</button>
-</form>
-<p><a href='/'>Home</a></p>
+            <label for="description">Update Description:</label>
+            <input id="description" name="description" type="text" value="{{ restaurant.getDescription }}">
+
+            <label for="website">Update Website:</label>
+            <input id="website" name="website" type="text" value="{{ restaurant.getWebsite }}">
+
+            <label for="location">Update Location:</label>
+            <input id="location" name="location" type="text" value="{{ restaurant.getLocation }}">
+
+            <label for="phone">Update Phone:</label>
+            <input id="phone" name="phone" type="text"value="{{ restaurant.getPhone }}">
+
+            <button type="submit">Update</button>
+          </form>
+
+          <p><a href='/'>Home</a></p>
+      </div>
+    </body>
+</html>

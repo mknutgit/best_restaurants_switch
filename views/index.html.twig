@@ -25,7 +25,7 @@
                 <ul>
                     {% for cuisine in cuisines %}
                     <!-- MAYBE RENAME THIS URL? -->
-                        <li><a href="cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+                        <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
                     {% endfor %}
                 </ul>
             {% else %}
