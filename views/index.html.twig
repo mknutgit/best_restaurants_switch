@@ -27,6 +27,7 @@
                     <li><a href="cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
                 {% endfor %}
             </ul>
+        {% else %}
             <p>There are no cuisines yet!</p>
         {% endif %}
 

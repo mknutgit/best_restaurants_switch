@@ -82,7 +82,7 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, description, website, location, phone, cuisine_id) VALUES ('{$this->getName()}', '{$this->getDescription()}', '{$this->getWebsite()}', '{$this->getLocation()}', {$this->getPhone()}, {$this->getCuisineId()});");
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, description, website, location, phone, cuisine_id) VALUES ('{$this->getName()}', '{$this->getDescription()}', '{$this->getWebsite()}', '{$this->getLocation()}', '{$this->getPhone()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
