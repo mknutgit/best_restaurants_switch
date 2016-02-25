@@ -17,7 +17,7 @@ _A simple web app to allow users to add the best restaurants to a mysql database
 
 ## Known Bugs
 
-_Unable to consistently add restaurants... Possibly the routes or getRestaurants function_
+_Unable to add names of restaurants with an '..._
 
 ## Support and contact details
 
