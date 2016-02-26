@@ -1,3 +1,21 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost:8080
+-- Generation Time: Feb 25, 2016 at 04:43 PM
+-- Server version: 5.7.10
+-- PHP Version: 5.6.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `best_restaurants`
 --
@@ -20,9 +38,7 @@ CREATE TABLE `cuisines` (
 --
 
 INSERT INTO `cuisines` (`id`, `type`) VALUES
-(12, 'Mer-I-Can'),
-(13, 'Thai'),
-(14, 'Chinese');
+(32, 'french');
 
 -- --------------------------------------------------------
 
@@ -45,13 +61,19 @@ CREATE TABLE `restaurants` (
 --
 
 INSERT INTO `restaurants` (`id`, `name`, `description`, `website`, `location`, `phone`, `cuisine_id`) VALUES
-(12, 'andy', 'no apostrophes', 'www.joses.com', '3rd', '43333333', 12),
-(13, 'pete', 'sfsad', 'sdfsd', 'sdfs', '432432', 12),
-(14, 'h', 'h', 'h', 'h', '12', 12),
-(15, 'u', 'u', 'u', 'u', '1', 12),
-(16, 'u', 'u', 'u', 'u', '1', 12),
-(17, 'i', 'i', 'i', 'i', 'i', 12),
-(18, 'hunan pro', 'sweet momos', 'www.gotrumpsasshole.com', '3rd', '44444444', 14);
+(47, 'saucey', '', '', '', '', 32);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `feedback` varchar(255) DEFAULT NULL,
+  `restaurant_id` int(11) DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -72,6 +94,13 @@ ALTER TABLE `restaurants`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -79,12 +108,17 @@ ALTER TABLE `restaurants`
 -- AUTO_INCREMENT for table `cuisines`
 --
 ALTER TABLE `cuisines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
